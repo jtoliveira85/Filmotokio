@@ -1,0 +1,16 @@
+2024-03-23 00:36:19,971 WARN com.tokioschool.filmotokio.security.jwt.JwtRequestFilter [http-nio-8080-exec-7] TOKEN SEM "Bearer "
+2024-03-23 00:36:20,117 WARN com.tokioschool.filmotokio.security.jwt.JwtRequestFilter [http-nio-8080-exec-5] TOKEN SEM "Bearer "
+2024-03-23 00:36:20,119 WARN com.tokioschool.filmotokio.security.jwt.JwtRequestFilter [http-nio-8080-exec-10] TOKEN SEM "Bearer "
+2024-03-23 00:36:20,120 WARN com.tokioschool.filmotokio.security.jwt.JwtRequestFilter [http-nio-8080-exec-8] TOKEN SEM "Bearer "
+2024-03-23 00:36:20,121 WARN com.tokioschool.filmotokio.security.jwt.JwtRequestFilter [http-nio-8080-exec-4] TOKEN SEM "Bearer "
+2024-03-23 12:00:00,039 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher$1 [scheduling-1] Job: [SimpleJob: [name=FILM-MIGRATION]] launched with the following parameters: [{jobExecution=6ef9cd86-93f2-4125-ae8d-b469e8435d2a}]
+2024-03-23 12:00:00,057 INFO org.springframework.batch.core.job.SimpleStepHandler [scheduling-1] Executing step: [STEP]
+2024-03-23 12:00:00,171 INFO org.springframework.batch.core.step.AbstractStep [scheduling-1] Step: [STEP] executed in 114ms
+2024-03-23 12:00:00,180 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher$1 [scheduling-1] Job: [SimpleJob: [name=FILM-MIGRATION]] completed with the following parameters: [{jobExecution=6ef9cd86-93f2-4125-ae8d-b469e8435d2a}] and the following status: [COMPLETED] in 129ms
+2024-03-23 12:00:00,184 INFO com.tokioschool.filmotokio.batch.FilmExporterListner [scheduling-1] Starting job: FILM-MIGRATION Records to be migrated: 10
+2024-03-23 12:00:00,194 INFO com.tokioschool.filmotokio.batch.FilmExporterListner [scheduling-1] Ending job: FILM-MIGRATION status: COMPLETED seconds:0 Records to be migrated: 0
+2024-03-23 15:31:58,309 WARN com.tokioschool.filmotokio.security.jwt.JwtRequestFilter [http-nio-8080-exec-6] TOKEN SEM "Bearer "
+2024-03-23 15:31:59,305 WARN com.tokioschool.filmotokio.security.jwt.JwtRequestFilter [http-nio-8080-exec-7] TOKEN SEM "Bearer "
+2024-03-23 15:31:59,308 WARN com.tokioschool.filmotokio.security.jwt.JwtRequestFilter [http-nio-8080-exec-10] TOKEN SEM "Bearer "
+2024-03-23 15:31:59,313 WARN com.tokioschool.filmotokio.security.jwt.JwtRequestFilter [http-nio-8080-exec-5] TOKEN SEM "Bearer "
+2024-03-23 15:31:59,314 WARN com.tokioschool.filmotokio.security.jwt.JwtRequestFilter [http-nio-8080-exec-8] TOKEN SEM "Bearer "

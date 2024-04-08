@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header th:replace="fragments/header"></header>
+
+<main>
+    <div class="container">
+        <div class="row">
+            <h4>Acesso Negado - Sem Permissão!</h4>
+            <a class="btn btn-primary" onclick="history.back()" style="width: 100px;">Voltar</a>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/footer"></footer>
+
+</body>
+</html>

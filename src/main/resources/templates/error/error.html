@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header th:replace="fragments/header"></header>
+
+<main>
+
+    <div class="container">
+        <h3>Erro</h3>
+
+        <p th:text="${message}"></p>
+        <!--        <p th:text="${url}"></p>-->
+        <p><a href="#" onclick="history.back()">Voltar</a></p>
+
+    </div>
+
+</main>
+
+<footer th:replace="fragments/footer"></footer>
+
+</body>
+</html>
+
