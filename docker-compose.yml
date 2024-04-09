@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  db:
+    image: mysql:8.3.0
+    restart: always
+    environment:
+      TZ: Europe/Lisbon
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: filmo_tokio
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_TCP_PORT: 3308
+    ports:
+      - 3308:3308
+    networks:
+      - tokiofilme-network
+  filmo-tokio:
+    image: filmotokio
+    restart: always
+    build: ./
+    working_dir: /tokiofilme
+    environment:
+      TZ: Europe/Lisbon
+      spring.datasource.url: jdbc:mysql://db:3308/filmo_tokio?serverTimezone=Europe/Lisbon
+      spring.datasource.username: root
+      spring.datasource.password: admin123
+    ports:
+      - 80:80
+    command: mvn spring-boot:run
+    depends_on:
+      - db
+    networks:
+      - tokiofilme-network
+networks:
+  tokiofilme-network:
+    driver: bridge
