@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <head th:replace="fragments/head"></head>
+  <title>FilmoTokio - Registo</title>
+<!--  <link rel="stylesheet" th:href="@{/css/selection-items.css}">-->
+
+</head>
+<body>
+
+<header th:replace="fragments/header"></header>
+
+
+<main>
+
+    <div class="container pt-4 pb-4">
+
+        <div class="row">
+
+<!--            COL ESQUERA -> IMAGEM-->
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="row mt-2">
+                    <img class="ps-0" th:src="@{'/' + ${filmImageURL} + ${film.poster}}" th:alt="${film.title}">
+                </div>
+            </div>
+
+<!--            COL DIREIRA -> INFO FILME-->
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+
+<!--                FILM Title-->
+
+<!--                YEAR / DURATION / SCORE-->
+                <div class="row mt-2">
+                    <div style="background-color: #fc4f4f;">
+                        <h4 class="p-2 m-0" th:text="${film.title}"></h4>
+                    </div>
+                    <div style="background-color: #dcdcdc; color: #333;">
+                        <p class="p-1 m-0">
+                            Ano: <span th:text="${film.year}"></span> | Duração: <span th:text="${film.duration}"></span> min | Pontos: <span th:text="${#numbers.formatDecimal(filmScore, 1, 'POINT', 2, 'POINT')}"></span>
+                        </p>
+                    </div>
+                </div>
+
+
+<!--                FILM Descrição-->
+                <div class="row mt-2">
+                    <div style="background-color: #383838;">
+                        <h5 class="p-2 m-0">Descrição:</h5>
+                    </div>
+                    <div style="background-color: #dcdcdc; color: #333;">
+                        <p class="p-1 m-0" th:text="${film.sypnosis}"></p>
+                    </div>
+                </div>
+
+<!--                FILM Realizador-->
+                <div class="row mt-2">
+                    <div style="background-color: #383838;">
+                        <h5 class="p-2 m-0">Realizador:</h5>
+                    </div>
+                    <div style="background-color: #dcdcdc; color: #333;">
+                        <p class="p-1 m-0">
+                            <span th:text="${film.diretor.getFullName()}"></span>.
+                        </p>
+                    </div>
+                </div>
+
+<!--                FILM Guionista-->
+                <div class="row mt-2">
+                    <div style="background-color: #383838;">
+                        <h5 class="p-2 m-0">Guionista:</h5>
+                    </div>
+                    <div style="background-color: #dcdcdc; color: #333;">
+                        <p class="p-1 m-0" th:each="guionista : ${film.guionistas}">
+                            <span th:text="${guionista.getFullName()}"></span>.
+                        </p>
+                    </div>
+                </div>
+
+
+<!--                FILM - Atores-->
+                <div class="row mt-2">
+                    <div style="background-color: #383838;">
+                        <h5 class="p-2 m-0">Atores:</h5>
+                    </div>
+                    <div style="background-color: #dcdcdc; color: #333;">
+                        <p class="p-1 m-0">
+                            <span th:each="ator, i : ${film.actores}" th:text="${ator.getFullName() + (i.last ? '.' : ', ')}"></span>
+                        </p>
+                    </div>
+                </div>
+
+
+<!--                FILM Musicos-->
+                <div class="row mt-2">
+                    <div style="background-color: #383838;">
+                        <h5 class="p-2 m-0">Musicos:</h5>
+                    </div>
+                    <div style="background-color: #dcdcdc; color: #333;">
+                        <p class="p-1 m-0">
+                            <span th:each="musico, i : ${film.musicos}" th:text="${musico.getFullName() + (i.last ? '.' : ', ')}"></span>
+                        </p>
+                    </div>
+                </div>
+
+
+<!--                FILM Fotografo-->
+                <div class="row mt-2">
+                    <div style="background-color: #383838;">
+                        <h5 class="p-2 m-0">Fotógrafo:</h5>
+                    </div>
+                    <div style="background-color: #dcdcdc; color: #333;">
+                        <p class="p-1 m-0"> <span th:text="${film.fotografo.getFullName()}"></span>.</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="row">
+
+<!--            SCORE-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <div class="row mt-2">
+                    <div style="background-color: #fc4f4f;">
+                        <h5 class="p-2 m-0">Pontos</h5>
+                    </div>
+                    <div th:if="${myScore != null}" style="background-color: #dcdcdc; color: #333;">
+                        <p class="p-1 m-0">Minha Avaliação: <span th:text="${myScore.value + ' ⭐'}"></span></p>
+                    </div>
+                    <div th:if="${myScore == null}" style="background-color: #dcdcdc; color: #333;">
+
+                        <div sec:authorize="isAuthenticated()">
+
+                            <p class="p-2 m-0">Avaliar Filme:</p>
+
+                            <form th:if="${myScore == null}" th:method="POST" th:action="@{/film/score/{id}(id=${film.id})}">
+
+                                <div th:if="${scoreError}" class="p-2 m-0 alert alert-danger" role="alert">
+                                    <span th:text="${scoreError}" class="error" style="display: block;"></span>
+                                </div>
+
+
+
+                                <div class="p-1 m-0" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                                    <div class="p-0 m-0" style="display: flex; flex-direction: row; justify-content: left; align-items: center;">
+                                        <!--                                <th:block th:each="star : ${#numbers.sequence(1, 10)}">-->
+                                        <div th:each="star : ${#numbers.sequence(0, 10)}">
+                                            <input class="form-check-input radio-field" type="radio" th:id="'star' + ${star}" name="newScore" th:value="${star}">
+                                            <label th:for="'star' + ${star}" th:text="${star + ' ⭐'}"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-0 m-0">
+                                        <button type="submit" class="m-0 btn btn-primary mt-2" style="margin: 0 !important">Avaliar</button>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                        <div sec:authorize="!isAuthenticated()">
+                            <p class="p-2 m-0">Faça Login Para avaliar o Filme!</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+<!--            REVIEW-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <div class="row mt-2">
+
+                    <div style="background-color: #fc4f4f;">
+                        <h5 class="p-2 m-0">Review</h5>
+                    </div>
+
+                    <div th:if="${myReview != null}" style="background-color: #dcdcdc; color: #333; display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+
+                        <div class="my-review-container">
+                            <p class="p-1 m-0">Minha Review: <span></span></p>
+                            <h6> <span th:text="${myReview.title}"></span> | <span th:text="${myReview.getFormattedDate()}"></span></h6>
+                            <p th:text="${myReview.textReview}"></p>
+                        </div>
+
+                    </div>
+
+                    <div th:if="${myReview == null}" style="background-color: #dcdcdc; color: #333;">
+
+                        <div sec:authorize="isAuthenticated()">
+
+                            <p class="p-2 m-0">Postar Review:</p>
+
+                            <form th:method="POST" th:action="@{/film/review/{id}(id=${film.id})}">
+
+                                <div th:if="${reviewError}" class="p-2 m-0 alert alert-danger" role="alert">
+                                    <span th:text="${reviewError}" class="error" style="display: block;"></span>
+                                </div>
+
+                                <div class="p-1 m-0">
+
+                                    <label for="title" class="form-label">Titulo:</label>
+                                    <input type="text" class="form-control" id="title" name="myReviewTitle" th:value="${myReviewTitle}">
+
+                                </div>
+
+                                <div class="p-1 m-0">
+                                    <label for="review" class="form-label">Titulo:</label>
+                                    <textarea type="text" class="form-control" id="review" name="myReviewText" th:value="${myReviewText}"></textarea>
+                                </div>
+
+                                <div class="p-1 m-1">
+                                    <button type="submit" class="btn btn-primary">Publicar</button>
+                                </div>
+
+
+                            </form>
+
+                        </div>
+
+                        <div sec:authorize="!isAuthenticated()">
+                            <p class="p-2 m-0">Faça Login Para deixar uma review do Filme!</p>
+                        </div>
+
+                    </div>
+
+<!--                    MOSTRAR todas Reviews-->
+                    <div th:if="${allReviews.size() > 0}" style="background-color: #dcdcdc; color: #333;">
+                        <hr>
+                        <div th:each="rev : ${allReviews}">
+
+                            <h6> De: <span th:text="${rev.user.username}"></span> | Titulo: <span th:text="${rev.title}"></span> | Data: <span th:text="${rev.getFormattedDate()}"></span></h6>
+                            <p>Review: <span th:text="${rev.textReview}"></span></p>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<footer th:replace="fragments/footer"></footer>
+
+<script th:src="@{/js/selection-items.js}"></script>
+
+
+
+
+</body>
+</html>

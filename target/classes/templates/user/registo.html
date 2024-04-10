@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <head th:replace="fragments/head"></head>
+  <title>FilmoTokio - Registo</title>
+    <link rel="stylesheet" th:href="@{/css/multiselect.css}">
+
+</head>
+<body>
+
+  <header th:replace="fragments/header"></header>
+
+  <main>
+
+      <div th:text="${#authentication.getAuthorities()}"></div>
+
+    <div class="container pt-4 ">
+
+
+      <form class="row mt-2" th:method="post" th:action="@{/user/save}" th:object="${newUser}" enctype="multipart/form-data">
+
+          <div class="row mt-2">
+<!--              <div th:ih="${#fields.hasErrors()}" class="alert alert-danger col-md-6 col-lg-5 mx-auto" role="alert">-->
+              <div th:if="${#fields.hasErrors()}" class="alert alert-danger col-md-6 col-lg-5 mx-auto" role="alert">
+
+<!--                  USERNAME-->
+                  <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error" style="display: block;"></span>
+                  <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"class="error" style="display: block;">Password - Campo Inválido</span>
+                  <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"class="error" style="display: block;">Name - Campo Inválido</span>
+                  <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"class="error" style="display: block;">Surname - Campo Inválido</span>
+                  <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"class="error" style="display: block;">Email - Campo Inválido</span>
+
+                  <span th:if="${userImageError}" class="error" th:text="${userImageError}" style="display: block;"></span>
+
+<!--                  PASSWORD-->
+              </div>
+          </div>
+
+
+<!--          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
+
+          <!--        Username-->
+          <div class="row mt-2">
+            <div class="col-md-6 col-lg-5 mx-auto">
+                <label for="username" class="form-label">Username: *</label>
+                <input type="text" class="form-control" id="username" th:field="*{username}">
+            </div>
+        </div>
+
+<!--          Password-->
+          <div class="row mt-2">
+              <div class="col-md-6 col-lg-5 mx-auto">
+                  <label for="password" class="form-label">Password: *</label>
+                  <input type="password" class="form-control" id="password" th:field="*{password}">
+              </div>
+          </div>
+
+<!--          NAME-->
+          <div class="row mt-2">
+              <div class="col-md-6 col-lg-5 mx-auto">
+                  <label for="name" class="label-form">Nome: *</label>
+                  <input type="text" class="form-control" id="name" th:field="*{name}">
+              </div>
+          </div>
+
+<!--          SURNAME-->
+          <div class="row mt-2">
+              <div class="col-md-6 col-lg-5 mx-auto">
+                  <label for="surname" class="label-form">Apelido: *</label>
+
+                  <input type="text" class="form-control" id="surname" th:field="*{surname}">
+              </div>
+          </div>
+
+          <!--          EMAIL-->
+          <div class="row mt-2">
+              <div class="col-md-6 col-lg-5 mx-auto">
+                  <label for="email" class="label-form">Email: *</label>
+
+                  <input type="email" class="form-control" id="email" th:field="*{email}">
+              </div>
+          </div>
+
+
+          <!--          BIRTH DATE-->
+          <div class="row mt-2">
+              <div class="col-md-6 col-lg-5 mx-auto">
+                  <label for="birthDate" class="label-form">Data de Nascimento: </label>
+                  <input type="date" data-provide="datepicker" data-date-format="dd/mm/yyyy" class="form-control datepicker" id="birthDate" autocomplete="off" th:field="*{birthDate}">
+              </div>
+          </div>
+
+          <!--          ROLES Multi Select-->
+          <div class="row mt-2 my-dd" sec:authorize="hasAuthority('ROLE_ADMIN')">
+              <div class="col-md-6 col-lg-5 mx-auto">
+
+                  <label class="label-form">Roles: </label>
+
+                  <div class="row item-btn-container">
+                      <div class="col-md-6 col-lg-5 mx-auto" id="selected-container"></div>
+                  </div>
+
+                  <button class="btn btn-light dropdown-toggle btn-search" type="button" id="dropdownMenu"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                      Escolha as opções
+                  </button>
+<!--                  my-drop-down-menu-->
+                  <ul class="col-md-6 col-lg-5 mx-auto dropdown-menu" aria-labelledby="dropdownMenu" id="dropdownList" style="margin: 0 auto; max-width: 516px">
+                      <li style="padding-left: 10px;">
+                          <div class="form-check">
+                              <div class="mb-3">
+                                  <input type="text" class="form-control" id="filterInput" placeholder="Procurar...">
+                              </div>
+                              <label class="form-check-label cb-field" th:each="r : ${rolesList}">
+                                  <input class="form-check-input checkbox-field" type="checkbox" th:name="roles" th:value="${r.getId()}" th:field="*{roles}">
+                                  <span th:text="${r.getRole().getRoleDesc()}"></span>
+                              </label>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+
+
+
+
+          <div class="row">
+              <div class="col-md-6 col-lg-5 mx-auto mt-4">
+                  <input type="submit" class="btn btn-primary" value="Registar">
+              </div>
+          </div>
+
+
+
+
+      </form>
+
+    </div>
+
+  </main>
+
+<footer th:replace="fragments/footer"></footer>
+
+  <!--  REMOVER -> BAIXO -->
+<!--  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"-->
+<!--          integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"-->
+<!--          crossorigin="anonymous"></script>-->
+<!--  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"-->
+<!--          integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"-->
+<!--          crossorigin="anonymous"></script>-->
+  <!--  REMOVER -> CIMA -->
+
+<!--  <link rel="stylesheet" th:href="@{/css/style.css}">-->
+  <script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>

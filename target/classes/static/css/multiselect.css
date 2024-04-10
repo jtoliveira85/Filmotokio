@@ -1,0 +1,30 @@
+#dropdownMenu {
+        width: 100%;
+}
+
+#dropdownList {
+    width: 100%;
+    overflow: auto;
+}
+
+.form-check {
+    margin-right: 34px;
+}
+
+.form-check-label {
+    width: 100%;
+}
+
+.btn-option {
+
+    margin: 5px;
+}
+
+.cb-field {
+    cursor: pointer;
+    padding: 4px;
+}
+
+.cb-field:hover {
+    background-color: aliceblue;
+}

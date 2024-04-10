@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+    <head th:replace="fragments/head"></head>
+
+
+    <style>
+    .disabled {
+        pointer-events: none; /* Impede que o link seja clicado */
+        color: gray; /* Altera a cor do texto para indicar que está desativado */
+        text-decoration: none; /* Remove sublinhado */
+        cursor: default; /* Altera o cursor para o padrão */
+    }
+
+    .page-link {
+        background-color: #CCCCCC;
+        color: #333;
+    }
+
+    .page-item:hover,
+    .page-link:hover {
+        cursor: pointer;
+    }
+    </style>
+
+<body>
+
+    <header th:replace="fragments/header"></header>
+
+
+    <main>
+
+        <div class="container pt-4 pb-4">
+
+            <div class="row">
+
+                <form action="/film/search" method="get" class="row" style="display: flex; justify-content: space-around; align-items: flex-end">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <label class="form-label">Pesquisa:</label>
+<!--                        <input id="searchInput" type="text" class="form-control" th:onchange="location.href='/film/search?search=' + (this.value)">-->
+<!--                        <input id="searchInput" type="text" class="form-control" name="search" th:value="${search}" th:oninput="location.href='/film/search?search=' + (this.value)">-->
+<!--                        <input id="searchInput" type="text" class="form-control" name="search" th:value="${search}" th:oninput="location.href='/film/search?search=' + encodeURIComponent(this.value)">-->
+                        <input id="searchInput" type="text" class="form-control" name="search" th:value="${search}" th:oninput="updateUrl()">
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">Tipo:</label>
+                            <select id="searchType" class="form-control" th:value="${searchType}" onchange="updateUrl(this.value)">
+                                <option value="film" th:selected="${searchType == 'film'}">Filme</option>
+                                <option value="diretor" th:selected="${searchType == 'diretor'}">Realizador</option>
+                            </select>
+                        </div>
+                    </div>
+
+<!--                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">-->
+<!--                        <div class="form-group">-->
+<!--                            <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">Procurar</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </form>
+
+            </div>
+
+<!--            TABLE-->
+            <div class="row mt-4">
+
+                <table class="table table-bordered table-hover">
+
+                    <thead style="background-color: #FC4F4F; color: #E4E4E4">
+                        <th scope="col">Nome Fime:</th>
+                        <th>Ano:</th>
+                        <th>Realizador:</th>
+                        <th>Duração:</th>
+                        <th>Score:</th>
+                    </thead>
+
+                    <tbody style="background-color: #dcdcdc; color: #333">
+                        <tr scope="row" th:each="film : ${filmPage}">
+                            <td><a th:href="@{/film/{filmName}(filmName=${film.title})}" th:text="${film.title}" style="color: #333"></a></td>
+                            <td th:text="${film.year}"></td>
+                            <td th:text="${film.diretor.getFullName()}"></td>
+                            <td><span th:text="${film.duration}"></span> min</td>
+                            <td th:text="${film.getFilmScore() != null && !film.getFilmScore().isNaN() ? #numbers.formatDecimal(film.getFilmScore(), 1, 'POINT', 2, 'POINT') : 'Sem Avaliações'}"></td>
+                        </tr>
+                    </tbody>
+
+
+                </table>
+
+
+                <div class="p-0" th:if="${totalPages > 1}">
+                    <ul class="pagination">
+                        <li class="page-item" th:class="${pageNumber == 0} ? 'disabled' : ''">
+<!--                            <a class="page-link" th:href="@{/film/search(search=${search}, page=0)}">Primeira</a>-->
+                            <a class="page-link" th:onclick="updateUrl(0)">Primeira</a>
+                        </li>
+                        <li class="page-item" th:class="${pageNumber == 0} ? 'disabled' : ''">
+<!--                            <a class="page-link" th:href="@{/film/search(search=${search}, page=${pageNumber - 1})}">Anterior</a>-->
+                            <a class="page-link" th:onclick="updateUrl([[${pageNumber - 1}]])">Anterior</a>
+                        </li>
+
+                        <!-- Lógica para garantir três botões de paginação -->
+                        <th:block th:if="${totalPages <= 3}">
+                            <th:block th:each="numPage : ${#numbers.sequence(0, totalPages - 1)}">
+                                <li class="page-item" th:class="${pageNumber == numPage ? 'page-item active' : 'page-item'}">
+                                    <a class="page-link" th:onclick="updateUrl([[${numPage}]])" th:text="${numPage + 1}"></a>
+                                </li>
+                            </th:block>
+                        </th:block>
+                        <th:block th:if="${totalPages > 3}">
+                            <th:block th:if="${pageNumber == 0}">
+                                <li class="page-item active">
+<!--                                    <a class="page-link" th:href="@{/film/search(search=${search}, page=${pageNumber})}" th:text="${pageNumber + 1}"></a>-->
+                                    <a class="page-link" th:onclick="updateUrl([[${pageNumber}]])" th:text="${pageNumber + 1}"></a>
+                                </li>
+                                <li class="page-item">
+<!--                                    <a class="page-link" th:href="@{/film/search(search=${search}, page=${pageNumber + 1})}" th:text="${pageNumber + 2}"></a>-->
+                                    <a class="page-link" th:onclick="updateUrl([[${pageNumber + 1}]])" th:text="${pageNumber + 2}"></a>
+                                </li>
+                                <li class="page-item">
+<!--                                    <a class="page-link" th:href="@{/film/search(search=${search}, page=${pageNumber + 2})}" th:text="${pageNumber + 3}"></a>-->
+                                    <a class="page-link" th:onclick="updateUrl([[${pageNumber + 2}]])" th:text="${pageNumber + 3}"></a>
+                                </li>
+                            </th:block>
+                            <th:block th:if="${pageNumber > 0 and pageNumber < totalPages - 1}">
+                                <li class="page-item">
+<!--                                    <a class="page-link" th:href="@{/film/search(search=${search}, page=${pageNumber - 1})}" th:text="${pageNumber}"></a>-->
+                                    <a class="page-link" th:onclick="updateUrl([[${pageNumber - 1}]])" th:text="${pageNumber}"></a>
+                                </li>
+                                <li class="page-item active">
+<!--                                    <a class="page-link" th:href="@{/film/search(search=${search}, page=${pageNumber})}" th:text="${pageNumber + 1}"></a>-->
+                                    <a class="page-link" th:onclick="updateUrl([[${pageNumber}]])" th:text="${pageNumber + 1}"></a>
+                                </li>
+                                <li class="page-item">
+<!--                                    <a class="page-link" th:href="@{/film/search(search=${search}, page=${pageNumber + 1})}" th:text="${pageNumber + 2}"></a>-->
+                                    <a class="page-link" th:onclick="updateUrl([[${pageNumber + 1}]])" th:text="${pageNumber + 2}"></a>
+                                </li>
+                            </th:block>
+                            <th:block th:if="${pageNumber == totalPages - 1}">
+                                <li class="page-item">
+<!--                                    <a class="page-link" th:href="@{/film/search(search=${search}, page=${pageNumber - 2})}" th:text="${pageNumber - 1}"></a>-->
+                                    <a class="page-link" th:onclick="updateUrl([[${pageNumber - 2}]])" th:text="${pageNumber - 1}"></a>
+                                </li>
+                                <li class="page-item">
+<!--                                    <a class="page-link" th:href="@{/film/search(search=${search}, page=${pageNumber - 1})}" th:text="${pageNumber}"></a>-->
+                                    <a class="page-link" th:onclick="updatePage([[${pageNumber - 1}]])" th:text="${pageNumber}"></a>
+                                </li>
+                                <li class="page-item active">
+<!--                                    <a class="page-link" th:href="@{/film/search(search=${search}, page=${pageNumber})}" th:text="${pageNumber + 1}"></a>-->
+                                    <a class="page-link" th:onclick="updateUrl([[${pageNumber}]])" th:text="${pageNumber + 1}"></a>
+                                </li>
+                            </th:block>
+                        </th:block>
+
+                        <li class="page-item" th:class="${pageNumber == totalPages - 1} ? 'disabled' : ''">
+<!--                            <a class="page-link" th:href="@{/film/search(search=${search}, page=${pageNumber + 1})}">Próxima</a>-->
+                            <a class="page-link" th:onclick="updateUrl([[${pageNumber + 1}]])">Próxima</a>
+                        </li>
+                        <li class="page-item" th:class="${pageNumber == totalPages - 1} ? 'disabled' : ''">
+<!--                            <a class="page-link" th:href="@{/film/search(search=${search}, page=${totalPages - 1})}">Última</a>-->
+                            <a class="page-link" th:onclick="updateUrl([[${totalPages - 1}]])">Última</a>
+                        </li>
+                    </ul>
+
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <label for="pageSizeSelect" class="form-label">Linhas por página:</label>
+                    <select class="form-select" id="pageSizeSelect" th:value="${pageSize}" th:onchange="updateUrl()">
+                        <option value="1" th:selected="${pageSize == 1}">1</option>
+                        <option value="5" th:selected="${pageSize == 5}">5</option>
+                        <option value="10" th:selected="${pageSize == 10}">10</option>
+                        <option value="20" th:selected="${pageSize == 20}">20</option>
+                    </select>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer th:replace="fragments/footer"></footer>
+
+    <!--  REMOVER -> BAIXO -->
+
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>-->
+    <!--  REMOVER -> CIMA -->
+<!--    <script th:src="@{/js/infomsg.js}"></script>-->
+
+
+
+    <script>
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var input = document.getElementById("searchInput");
+            input.focus();
+
+            var textLength = input.value.length;
+            input.setSelectionRange(textLength, textLength);
+        });
+
+
+        function updateUrl(pageNum) {
+            var baseUrl = "/film/search";
+            var newUrl;
+
+            var searchInput = document.getElementById("searchInput");
+            var pageSizeSelect = document.getElementById("pageSizeSelect");
+            var searchTypeInput = document.getElementById("searchType");
+
+            var searchValue = encodeURIComponent(searchInput.value);
+            var pageSize = pageSizeSelect.value;
+            var searchType = searchTypeInput.value;
+
+
+
+
+            if (searchValue !== null && searchValue !== '') {
+                newUrl = baseUrl + "?search=" + searchValue;
+            } else {
+                newUrl = baseUrl;
+            }
+
+            if (pageSize !== '10') {  // Adiciona pageSize somente se for diferente de 10 (padrão)
+                // Verifica se a URL já contém parâmetros
+                if (newUrl.includes("?")) {
+                    newUrl += "&pageSize=" + pageSize;
+                } else {
+                    newUrl += "?pageSize=" + pageSize;
+                }
+            }
+
+            if (searchType !== null) {
+                if (newUrl.includes("?")) {
+                    newUrl += "&searchType=" + searchType;
+                } else {
+                    newUrl += "?searchType=" + searchType;
+                }
+            }
+
+
+            if (!isNaN(pageNum)) { // Verifica se pageNum é um número
+                if (newUrl.includes("?")) {
+                    newUrl += "&pageNumber=" + pageNum;
+                } else {
+                    newUrl += "?pageNumber=" + pageNum;
+                }
+            }
+
+            window.location.href = newUrl;
+        }
+
+
+
+    </script>
+
+
+
+</body>
+</html>

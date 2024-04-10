@@ -1,0 +1,69 @@
+.my-opc-container {
+    display: none;
+    border: 1px solid #999;
+    margin: 0px -5px;
+    padding: 0px;
+    border-radius: 8px;
+
+    /* Outros estilos padrão aqui, conforme necessário */
+}
+.my-dropdown-menu {
+    width: 96%;
+}
+
+.form-check {
+    padding: 0;
+    margin: 0;
+}
+
+.my-opc-container.active {
+    display: flex;
+    max-width: 585px;
+    justify-content: center;
+    flex-direction: column;
+    gap:5px;
+    background-color: #DCDCDC;
+    color: #545454;
+    /* min-height: fit-content; */
+    /* max-height: 200px;  */
+    /* Outros estilos quando a classe active está presente */
+}
+
+.my-opc-items {
+    min-height: fit-content;
+    overflow: auto;
+    min-height: fit-content;
+    max-height: 206px;
+}
+
+.my-selected-items-container {
+    display: none;
+    flex-wrap: wrap;
+    padding: 8px 0;
+    gap: 5px;
+}
+
+.my-opc-items::-webkit-scrollbar {
+    width: 8px;
+    /* Largura da barra de rolagem */
+}
+
+.my-opc-items::-webkit-scrollbar-thumb {
+    background-color: #545454;
+    /* Cor da barra de rolagem */
+    border-radius: 4px;
+    /* Borda arredondada da barra de rolagem */
+}
+
+.my-label-field {
+    display: block;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+.my-label-field:hover {
+    cursor: pointer;
+    background-color: #E8E8E8;
+    color: #545454;
+    border-radius: 5px;
+}

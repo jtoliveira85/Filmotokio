@@ -1,0 +1,55 @@
+<header xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+
+    <nav class="container navbar navbar-expand-lg">
+        <div class="container-fluid my-nav">
+            <a class="navbar-brand" th:href="@{/}" style="color: #FC4F4F !important; font-size: 28px; font-weight: bold;">FilmoTokio</a>
+
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item underline-on-hover">
+                        <a class="nav-link" aria-current="page" th:href="@{/film/create}">Novo Filme</a>
+                    </li>
+                    <li class="nav-item underline-on-hover">
+                        <a class="nav-link" th:href="@{/film/search}">Procurar Filme</a>
+                    </li>
+                    <li class="nav-item underline-on-hover">
+                        <a class="nav-link" th:href="@{/person/create}">Criar Pessoa</a>
+                    </li>
+                    <li class="nav-item underline-on-hover">
+                        <a class="nav-link" th:href="@{/user/register}">Criar Usuario</a>
+                    </li>
+                </ul>
+
+            </div>
+
+
+
+            <div class="d-flex">
+                <div sec:authorize="isAuthenticated()" class="navbar-text">
+                    <li class="nav-item dropdown btn-login">
+                        <a th:href="@{/user/myprofile}" class="my-profile">
+                            <img th:if="${#authentication.principal.userImage != null}"
+                                th:attr="src=@{'/' + ${@environment.getProperty('images.load-user-image.dir')} + ${#authentication.principal.userImage}}">
+
+                            <img th:if="${#authentication.principal.userImage == null}" th:src="@{/images/users/img-uploads/user-profile.png}" alt="" height="40px" width="40px">
+
+                        </a>
+                        <a th:href="@{/logout}" class="btn btn-primary">Logout</a>
+                    </li>
+                </div>
+                <div sec:authorize="!isAuthenticated()" class="navbar-text">
+                    <li class="nav-item dropdown btn-login">
+                        <a th:href="@{/login}" class="btn btn-primary">Login</a>
+                    </li>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+        </div>
+
+
+    </nav>
+
+</header>

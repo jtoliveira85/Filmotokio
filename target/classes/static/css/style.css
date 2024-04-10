@@ -1,0 +1,115 @@
+header {
+    background-color: #000000 !important;
+    color: #E4E4E4;
+    margin: 0;
+}
+
+nav {
+    background-color: #000000 !important;
+    color: #E4E4E4 !important;
+}
+
+nav a {
+    color: #E4E4E4 !important;
+}
+
+.dropdown-item {
+    color: black !important;
+}
+
+
+
+main {
+    min-height: calc(100vh - (73px + 40px));
+    color: #E4E4E4;
+}
+
+
+.btn-login {
+    list-style: none;
+}
+
+.header-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px;
+}
+
+main {
+    background-color: #545454;
+}
+
+.underline-on-hover:hover {
+    text-decoration: underline;
+}
+
+.form-login {
+    /* padding-top: 100px; */
+}
+
+.main-content {
+    padding-top: 50px;
+}
+
+.main-content-form {
+    padding: 50px;
+    background-color: rgb(190, 190, 190);
+    width: 600px !important;
+    margin: 0 auto;
+}
+
+.my-container {
+    margin: 0 auto;
+}
+
+.my-drop-down-menu {
+    width: 80% !important;
+    max-width: 1000px !important;
+
+}
+
+.custom-toast {
+    position: absolute;
+    top: 92px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    z-index: 1000;
+}
+
+.my-card {
+    background-color: #DCDCDC;
+    width: 100%;
+}
+
+#selected-container {
+    display: flex;
+}
+
+#selected-container {
+    display: flex;
+}
+
+#selected-container > button {
+    display: flex;
+    gap: 5px;
+}
+
+.selected-container {
+    margin: 0 !important;
+}
+
+.btn-option {
+    width: fit-content !important;
+    margin: 5px 0 !important;
+}
+
+.my-profile {
+    text-decoration: none;
+}
+
+.my-profile > img {
+    height: 38px;
+}
