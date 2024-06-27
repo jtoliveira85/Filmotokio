@@ -1,5 +1,9 @@
 CREATE SCHEMA IF NOT EXISTS filmo_tokio;
 
+/*
+User: user
+Password: user
+*/
 INSERT INTO filmo_tokio.user
     (active, birth_date, creation_date, email, name, password, surname, username)
 VALUES
@@ -14,7 +18,7 @@ VALUES
 
 
 INSERT INTO filmo_tokio.user_role VALUES
-(1, 1), (1, 2), (2, 1), (3, 1);
+(1, 1), (1, 2), (2, 1), (2, 2);
 
 
 INSERT INTO filmo_tokio.person VALUES
@@ -65,16 +69,16 @@ INSERT INTO filmo_tokio.person VALUES
 (46,'Hayden','Christensen','ACTOR');
 
 INSERT INTO filmo_tokio.film VALUES
-(1,NULL,143, 0,'/user1/blod-diamond.jpg','Um pescador, um contrabandista e um sindicato de empres·rios se enfrentam sobre a posse de um diamante de valor inestim·vel.','Diamante de Sangue',2006,1,5,1),
-(2,NULL,107, 0,'/user1/doidos-solta.jpg','Depois que uma mulher deixa uma maleta no terminal do aeroporto, um motorista bobo de limusine e sua amigo bobo embarcam em uma divertida viagem por Aspen para devolver a maleta ao propriet·rio.','Dumb and Dumber',1994,11,12,1),
-(3,NULL,175, 0,'/user1/godfather1.jpg','O patriarca idoso de uma dinastia do crime organizado transfere o controle de seu impÈrio clandestino para seu filho relutante.','Godfather I',1972,18,19,1),
-(4,NULL,202, 0,'/user1/godfather2.jpg','Em 1950, Michael Corleone, agora ‡ frente da famÌlia, tenta expandir o negÛcio do crime a Las Vegas, Los Angeles e Cuba. Paralelamente, È revelada a histÛria de Vito Corleone, e de como saiu da SicÌlia e chegou a Nova Iorque.','Godfather II',1974,18,19,1),
-(5,NULL,162, 0,'/user1/godfather3.jpg','No meio de tentar legitimar seus negÛcios na cidade de Nova York e na It·lia em 1979, o velho mafioso Don Michael Corleone procura confessar seus pecados, enquanto tomava seu sobrinho Vincent Mancini baixo sua proteÁ„o.','Godfather III',1990,18,19,1),
-(6,NULL,148, 0,'/user1/inception.jpg','Um ladr„o que rouba segredos corporativos atravÈs da tecnologia de entrar no subconsciente recebe a tarefa inversa de plantar uma idÈia na mente do diretor de uma grande empresa.','Inception',2010,29,30,1),
-(7,NULL,169, 0,'/user1/interstellar.jpg','Uma equipe de exploradores viaja atravÈs de um buraco de minhoca no espaÁo, na tentativa de garantir a sobrevivÍncia da humanidade.','Interestelar',2014,29,36,1),
-(8,NULL,136, 0,'/user1/star-wars-i.jpg','Dois cavaleiros Jedi escapam de um bloco hostil para procurar aliados e encontrar um jovem que possa restaurar o equilÌbrio na ForÁa. Mas os anteriormente inativos Sith ressurgem para reivindicar sua antiga glÛria','Star Wars: Episode I',1999,39,44,1),
-(9,NULL,142, 0,'/user1/star-wars-ii.jpg','Dez anos depois de seu primeiro encontro, o Anakin Skywalker e a PadmÈ Admidala curtem um romance proibido. Enquanto Obi-wan Kenobi investiga uma tentativa de assassinato de um senador.','Star Wars: Episode II',2002,39,44,1),
-(10,NULL,140, 0,'/user1/star-wars-iii.jpg','As Guerras ClÙnicas comeÁaram h· 3 anos. Os Jedi resgatam Palpatine, do Conde Dooku, e Obi-wan mantÈm o controle de uma nova ameaÁa, enquanto Anakin atua como um agente duplo.','Star Wars, EpisÛdio III',2005,39,44,1);
+(1,NULL,143, 0,'/user1/blod-diamond.jpg','Um pescador, um contrabandista e um sindicato de empres√°rios se enfrentam sobre a posse de um diamante de valor inestim√°vel.','Diamante de Sangue',2006,1,5,1),
+(2,NULL,107, 0,'/user1/doidos-solta.jpg','Depois que uma mulher deixa uma maleta no terminal do aeroporto, um motorista bobo de limusine e sua amigo bobo embarcam em uma divertida viagem por Aspen para devolver a maleta ao propriet√°rio.','Dumb and Dumber',1994,11,12,1),
+(3,NULL,175, 0,'/user1/godfather1.jpg','O patriarca idoso de uma dinastia do crime organizado transfere o controle de seu imp√©rio clandestino para seu filho relutante.','Godfather I',1972,18,19,1),
+(4,NULL,202, 0,'/user1/godfather2.jpg','Em 1950, Michael Corleone, agora √† frente da fam√≠lia, tenta expandir o neg√≥cio do crime a Las Vegas, Los Angeles e Cuba. Paralelamente, √© revelada a hist√≥ria de Vito Corleone, e de como saiu da Sic√≠lia e chegou a Nova Iorque.','Godfather II',1974,18,19,1),
+(5,NULL,162, 0,'/user1/godfather3.jpg','No meio de tentar legitimar seus neg√≥cios na cidade de Nova York e na It√°lia em 1979, o velho mafioso Don Michael Corleone procura confessar seus pecados, enquanto tomava seu sobrinho Vincent Mancini baixo sua prote√ß√£o.','Godfather III',1990,18,19,1),
+(6,NULL,148, 0,'/user1/inception.jpg','Um ladr√£o que rouba segredos corporativos atrav√©s da tecnologia de entrar no subconsciente recebe a tarefa inversa de plantar uma id√©ia na mente do diretor de uma grande empresa.','Inception',2010,29,30,1),
+(7,NULL,169, 0,'/user1/interstellar.jpg','Uma equipe de exploradores viaja atrav√©s de um buraco de minhoca no espa√ßo, na tentativa de garantir a sobreviv√™ncia da humanidade.','Interestelar',2014,29,36,1),
+(8,NULL,136, 0,'/user1/star-wars-i.jpg','Dois cavaleiros Jedi escapam de um bloco hostil para procurar aliados e encontrar um jovem que possa restaurar o equil√≠brio na For√ßa. Mas os anteriormente inativos Sith ressurgem para reivindicar sua antiga gl√≥ria','Star Wars: Episode I',1999,39,44,1),
+(9,NULL,142, 0,'/user1/star-wars-ii.jpg','Dez anos depois de seu primeiro encontro, o Anakin Skywalker e a Padm√© Admidala curtem um romance proibido. Enquanto Obi-wan Kenobi investiga uma tentativa de assassinato de um senador.','Star Wars: Episode II',2002,39,44,1),
+(10,NULL,140, 0,'/user1/star-wars-iii.jpg','As Guerras Cl√¥nicas come√ßaram h√° 3 anos. Os Jedi resgatam Palpatine, do Conde Dooku, e Obi-wan mant√©m o controle de uma nova amea√ßa, enquanto Anakin atua como um agente duplo.','Star Wars, Epis√≥dio III',2005,39,44,1);
 
 INSERT INTO filmo_tokio.film_actores
 VALUES (1,2),(6,2),(1,3),(1,4),(2,8),(2,9),(2,10),(3,15),(3,16),(4,16),(5,16),(3,17),(4,23),(5,23),(5,25),(6,27),(6,28),(7,33),(7,34),(7,35),(4,38),(8,40),(8,41),(9,41),(10,41),(8,42),(9,42),(10,42),(9,46),(10,46);
@@ -88,8 +92,8 @@ INSERT INTO filmo_tokio.review (date, text_review, title, film_id, user_id)
 values
     ('2024-03-22 13:26:00.000000', 'Melhor filme de Sempre', 'Top', 1, 1),
     ('2024-03-20 14:31:00.000000', 'Muito Bom', 'Gostei', 1, 2),
-    ('2024-03-25 11:04:00.000000', 'SÛ rir', 'Divertido', 2, 1),
-    ('2024-03-24 12:15:00.000000', 'Grande comÈdia', 'ComÈdia', 2, 2)
+    ('2024-03-25 11:04:00.000000', 'S√≥ rir', 'Divertido', 2, 1),
+    ('2024-03-24 12:15:00.000000', 'Grande com√©dia', 'Com√©dia', 2, 2)
 
 INSERT INTO filmo_tokio.score (value, film_id, user_id)
 values
